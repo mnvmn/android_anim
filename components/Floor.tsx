@@ -2,15 +2,17 @@ import React from "react";
 import { Dimensions, ImageBackground, View } from "react-native";
 import Images from "../assets/images/bird/Images";
 
-const imgWidth = 300;
-const imgHeight = 300;
-
 export default function Floor() {
   const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
+
+  const imgWidth = windowHeight / 5;
+  const imgHeight = imgWidth;
   const repeats = Math.ceil(windowWidth / imgWidth);
 
   return Array.from(Array(repeats).keys()).map((item, index) => (
     <View
+      key={index}
       style={{
         position: "absolute",
         bottom: 0,

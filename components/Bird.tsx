@@ -10,14 +10,13 @@ const STAGES = {
 export default function Bird({
   left = 20,
   top = 20,
-  width = 100,
-  height = 100,
 }: {
   left?: number;
   top?: number;
-  width?: number;
-  height?: number;
 }) {
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
+  const imgWidth = windowHeight / 5;
   const animY = useRef(new Animated.Value(left)).current;
   const [stage, setStage] = useState(STAGES.left);
   const [inProgress, setInProgress] = useState(false);
@@ -36,15 +35,21 @@ export default function Bird({
 
   return (
     <Animated.View
-      style={{ position: "absolute", left: animY, top, width, height }}
+      style={{
+        position: "absolute",
+        left: animY,
+        top,
+        width: imgWidth,
+        height: imgWidth,
+        // height: (120 / 97) * imgWidth,
+      }}
     >
       <TouchableOpacity
         activeOpacity={inProgress ? 1 : 0.7}
         onPress={() => {
           if (!inProgress) {
             if (stage === STAGES.left) {
-              const windowWidth = Dimensions.get("window").width;
-              animate(windowWidth - (width + 2 * left));
+              animate(windowWidth - (imgWidth + 2 * left));
             } else {
               animate(left);
             }
