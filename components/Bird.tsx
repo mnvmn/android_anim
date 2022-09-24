@@ -19,14 +19,19 @@ export default function Bird({
   height?: number;
 }) {
   const animY = useRef(new Animated.Value(left)).current;
-  const [stage, seStage] = useState(STAGES.left);
+  const [stage, setStage] = useState(STAGES.left);
+  const [inProgress, setInProgress] = useState(false);
 
-  function animate(toValue) {
+  function animate(toValue: number) {
+    setInProgress(true);
     Animated.timing(animY, {
       toValue,
       duration: 3000,
       useNativeDriver: true,
-    }).start();
+    }).start(() => {
+      setStage(stage === STAGES.left ? STAGES.right : STAGES.left);
+      setInProgress(false);
+    });
   }
 
   return (
@@ -34,10 +39,16 @@ export default function Bird({
       style={{ position: "absolute", left: animY, top, width, height }}
     >
       <TouchableOpacity
+        activeOpacity={inProgress ? 1 : 0.7}
         onPress={() => {
-          seStage(stage === STAGES.left ? STAGES.right : STAGES.left);
-          const windowWidth = Dimensions.get("window").width;
-          animate(windowWidth - (width + 2 * left));
+          if (!inProgress) {
+            if (stage === STAGES.left) {
+              const windowWidth = Dimensions.get("window").width;
+              animate(windowWidth - (width + 2 * left));
+            } else {
+              animate(left);
+            }
+          }
         }}
         style={{ width: "100%", height: "100%" }}
       >
