@@ -1,6 +1,6 @@
 import React from "react";
 import { ImageBackground } from "react-native";
-import Images from "./Images";
+import Images from "../assets/images/bird/Images";
 
 export default function Floor() {
 
