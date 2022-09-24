@@ -1,20 +1,32 @@
 import React from "react";
-import { ImageBackground } from "react-native";
+import { Dimensions, ImageBackground, View } from "react-native";
 import Images from "../assets/images/bird/Images";
 
-export default function Floor() {
+const imgWidth = 300;
+const imgHeight = 300;
 
-  return (
-    <ImageBackground
-      source={Images.floor}
+export default function Floor() {
+  const windowWidth = Dimensions.get("window").width;
+  const repeats = Math.ceil(windowWidth / imgWidth);
+
+  return Array.from(Array(repeats).keys()).map((item, index) => (
+    <View
       style={{
         position: "absolute",
         bottom: 0,
-        left: 0,
-        width: "100%",
-        height: "240px",
+        left: index * imgWidth,
+        width: imgWidth,
+        height: imgHeight,
       }}
-      imageStyle={{ resizeMode: "repeat" }}
-    />
-  );
+    >
+      <ImageBackground
+        source={Images.floor}
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+        imageStyle={{ resizeMode: "stretch" }}
+      />
+    </View>
+  ));
 }

@@ -27,7 +27,7 @@ export default function Bird({
     Animated.timing(animY, {
       toValue,
       duration: 3000,
-      useNativeDriver: true,
+      useNativeDriver: false,
     }).start(() => {
       setStage(stage === STAGES.left ? STAGES.right : STAGES.left);
       setInProgress(false);
