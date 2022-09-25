@@ -7,6 +7,8 @@ const STAGES = {
   right: "right",
 };
 
+const BIRD_PHASES = [Images.bird1, Images.bird2];
+
 export default function Bird({
   left = 20,
   top = 20,
@@ -20,9 +22,14 @@ export default function Bird({
   const animY = useRef(new Animated.Value(left)).current;
   const [stage, setStage] = useState(STAGES.left);
   const [inProgress, setInProgress] = useState(false);
+  const [phase, setPhase] = useState(0);
 
   function animate(toValue: number) {
     setInProgress(true);
+    const int = setInterval(() => {
+      setPhase((p) => ++p);
+    }, 100);
+
     Animated.timing(animY, {
       toValue,
       duration: 3000,
@@ -30,6 +37,7 @@ export default function Bird({
     }).start(() => {
       setStage(stage === STAGES.left ? STAGES.right : STAGES.left);
       setInProgress(false);
+      clearInterval(int);
     });
   }
 
@@ -41,7 +49,6 @@ export default function Bird({
         top,
         width: imgWidth,
         height: imgWidth,
-        // height: (120 / 97) * imgWidth,
       }}
     >
       <TouchableOpacity
@@ -59,7 +66,7 @@ export default function Bird({
       >
         <Image
           resizeMode="stretch"
-          source={Images.bird1}
+          source={BIRD_PHASES[phase % BIRD_PHASES.length]}
           style={{
             transform: [{ scaleX: stage === STAGES.left ? 1 : -1 }],
             width: "100%",

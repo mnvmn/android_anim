@@ -1,5 +1,5 @@
 {
-  "name": "game1",
+  "name": "android_anim",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -8,9 +8,6 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll"
-  },
-  "jest": {
-    "preset": "jest-expo"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
