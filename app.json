@@ -16,11 +16,12 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
+    },
+    "androidNavigationBar": {
+      "visible": "immersive"
     },
     "android": {
       "adaptiveIcon": {
